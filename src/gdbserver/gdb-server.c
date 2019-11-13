@@ -20,6 +20,7 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <netinet/tcp.h>
 #include <arpa/inet.h>
 #endif
 
@@ -1069,6 +1070,7 @@ int serve(stlink_t *sl, st_state_t *st) {
 
     unsigned int val = 1;
     setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, (char *)&val, sizeof(val));
+    setsockopt(sock, SOL_TCP, TCP_NODELAY, (char *)&val, sizeof(val));
 
     struct sockaddr_in serv_addr;
     memset(&serv_addr,0,sizeof(struct sockaddr_in));
